@@ -10,6 +10,8 @@ project(image_outline_plugin)
 find_package(GAZEBO REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
+find_package(OpenCV REQUIRED)
+
 
 
 #==============================================================================
@@ -19,11 +21,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 include_directories(
     include
     ${GAZEBO_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
 )
 
 
 link_directories(
     ${GAZEBO_LIBRARY_DIRS}
+    ${OpenCV_LIBRARY_DIRS}
 )
 
 
@@ -44,5 +48,6 @@ add_library(image_outline_plugin SHARED
 
 target_link_libraries(image_outline_plugin
     ${GAZEBO_LIBRARIES}
+    ${OpenCV_LIBRARIES}
     CameraPlugin
 )
