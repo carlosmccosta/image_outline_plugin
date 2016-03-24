@@ -10,7 +10,7 @@ project(image_outline_plugin)
 find_package(GAZEBO REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
-find_package(OpenCV REQUIRED)
+find_package(laser_projector_bridge REQUIRED COMPONENTS image_tracer)
 
 
 
@@ -21,14 +21,16 @@ find_package(OpenCV REQUIRED)
 include_directories(
     include
     ${GAZEBO_INCLUDE_DIRS}
-    ${OpenCV_INCLUDE_DIRS}
+    ${laser_projector_bridge_INCLUDE_DIRS}
 )
 
 
 link_directories(
     ${GAZEBO_LIBRARY_DIRS}
-    ${OpenCV_LIBRARY_DIRS}
+    ${laser_projector_bridge_LIBRARY_DIRS}
 )
+
+include(GNUInstallDirs)
 
 
 
@@ -39,6 +41,7 @@ link_directories(
 add_library(image_outline_plugin SHARED
     src/image_outline_plugin.cpp
 )
+LIST(APPEND ${PROJECT_NAME}-libraries image_outline_plugin)
 
 
 
@@ -48,6 +51,17 @@ add_library(image_outline_plugin SHARED
 
 target_link_libraries(image_outline_plugin
     ${GAZEBO_LIBRARIES}
-    ${OpenCV_LIBRARIES}
     CameraPlugin
+    ${laser_projector_bridge_LIBRARIES}
+    image_tracer
 )
+
+
+
+#==================================================================================================
+# install
+#==================================================================================================
+
+install(TARGETS ${${PROJECT_NAME}-libraries} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib EXPORT ${PROJECT_NAME}-config)
+install(DIRECTORY include/${PROJECT_NAME}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME} FILES_MATCHING PATTERN "*.h")
+install(EXPORT ${PROJECT_NAME}-config DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
