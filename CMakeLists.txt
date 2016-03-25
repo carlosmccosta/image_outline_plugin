@@ -10,7 +10,7 @@ project(image_outline_plugin)
 find_package(GAZEBO REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
-find_package(laser_projector_bridge REQUIRED COMPONENTS image_tracer)
+find_package(laser_projector_bridge REQUIRED COMPONENTS image_tracer vector_image_publisher)
 
 
 
@@ -54,6 +54,7 @@ target_link_libraries(image_outline_plugin
     CameraPlugin
     ${laser_projector_bridge_LIBRARIES}
     image_tracer
+    vector_image_publisher
 )
 
 

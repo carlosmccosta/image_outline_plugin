@@ -11,11 +11,13 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  <includes>   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // std includes
 #include <iostream>
+#include <sstream>
 
 // external libs includes
 #include <gazebo/gazebo.hh>
 #include <gazebo/plugins/CameraPlugin.hh>
 #include <laser_projector_bridge/image_tracer.h>
+#include <laser_projector_bridge/vector_image_publisher.h>
 
 // project includes
 
@@ -48,6 +50,7 @@ class ImageOutlinePlugin : public CameraPlugin {
 	protected:
 		int image_count_;
 		laser_projector_bridge::ImageTracer image_tracer_;
+		laser_projector_bridge::VectorImagePublisher vector_image_publisher_;
 	// ========================================================================   </protected-section>  ========================================================================
 };
 
